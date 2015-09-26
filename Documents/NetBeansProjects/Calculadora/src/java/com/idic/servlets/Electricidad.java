@@ -49,6 +49,8 @@ public class Electricidad extends HttpServlet {
         
         HttpSession ses=request.getSession(true);
         ses.setAttribute("per_cap", per_cap);
+        response.sendRedirect("Transporte.jsp");
+        
         
               
               
