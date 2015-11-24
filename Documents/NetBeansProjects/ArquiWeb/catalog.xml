@@ -12,4 +12,6 @@
     <system systemId="http://localhost:8080/WS/Listar?xsd=1" uri="src/conf/xml-resources/web-service-references/Listar/wsdl/localhost_8080/WS/Listar.xsd_1.xsd"/>
     <system systemId="http://localhost:8080/WS/RegistrarUsuario?WSDL" uri="src/conf/xml-resources/web-service-references/RegistrarUsuario/wsdl/localhost_8080/WS/RegistrarUsuario.wsdl"/>
     <system systemId="http://localhost:8080/WS/RegistrarUsuario?xsd=1" uri="src/conf/xml-resources/web-service-references/RegistrarUsuario/wsdl/localhost_8080/WS/RegistrarUsuario.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/WS/ActualizarCliente?WSDL" uri="src/conf/xml-resources/web-service-references/ActualizarCliente/wsdl/localhost_8080/WS/ActualizarCliente.wsdl"/>
+    <system systemId="http://localhost:8080/WS/ActualizarCliente?xsd=1" uri="src/conf/xml-resources/web-service-references/ActualizarCliente/wsdl/localhost_8080/WS/ActualizarCliente.xsd_1.xsd"/>
 </catalog>

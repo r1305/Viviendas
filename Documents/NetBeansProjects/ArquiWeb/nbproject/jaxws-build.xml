@@ -106,5 +106,21 @@
         <delete dir="${build.generated.sources.dir}/jax-ws/ws/arqui"/>
         <delete dir="${build.generated.dir}/jax-wsCache/RegistrarUsuario"/>
     </target>
-    <target name="wsimport-client-generate" depends="wsimport-client-Login, wsimport-client-Server, wsimport-client-Client, wsimport-client-Listar, wsimport-client-RegistrarUsuario"/>
+    <target name="wsimport-client-ActualizarCliente" depends="wsimport-init">
+        <mkdir dir="${build.generated.dir}/jax-wsCache/ActualizarCliente"/>
+        <wsimport sourcedestdir="${build.generated.dir}/jax-wsCache/ActualizarCliente" destdir="${build.generated.dir}/jax-wsCache/ActualizarCliente" wsdl="${basedir}/${conf-dir}xml-resources/web-service-references/ActualizarCliente/wsdl/localhost_8080/WS/ActualizarCliente.wsdl" catalog="catalog.xml" encoding="${source.encoding}" extension="true" verbose="true" fork="false" wsdlLocation="http://localhost:8080/WS/ActualizarCliente?WSDL" xnocompile="true" xendorsed="true">
+            <depends file="${basedir}/${conf-dir}xml-resources/web-service-references/ActualizarCliente/wsdl/localhost_8080/WS/ActualizarCliente.wsdl"/>
+            <produces dir="${build.generated.dir}/jax-wsCache/ActualizarCliente"/>
+        </wsimport>
+        <copy todir="${build.generated.sources.dir}/jax-ws">
+            <fileset dir="${build.generated.dir}/jax-wsCache/ActualizarCliente">
+                <include name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="wsimport-client-clean-ActualizarCliente" depends="-init-project">
+        <delete dir="${build.generated.sources.dir}/jax-ws/ws/arqui"/>
+        <delete dir="${build.generated.dir}/jax-wsCache/ActualizarCliente"/>
+    </target>
+    <target name="wsimport-client-generate" depends="wsimport-client-Login, wsimport-client-Server, wsimport-client-Client, wsimport-client-Listar, wsimport-client-RegistrarUsuario, wsimport-client-ActualizarCliente"/>
 </project>

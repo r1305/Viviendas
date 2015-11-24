@@ -33,5 +33,26 @@
                 </tbody>
             </table>
         </form>
+        
+        <form action="Update">
+            <table>
+                <thead>
+                    
+                        <td>Usuario</td>
+                        <td>Clave</td>
+                        <td>Suministro</td>
+                    
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type="text" name="user"></td>
+                        <td><input type="password" name="psw"></td>
+                        <td><input type="number" name="sum"></td>
+                        <td><span col="1"><input type="submit" value="Actualizar Datos"></span></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </form>
     </body>
 </html>
