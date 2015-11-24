@@ -159,6 +159,30 @@ public class DAO {
 		return signup;
     }
     
+    public boolean actualizarUsuario(String sum,String u,String clave) {
+        // TODO Auto-generated method stub
+		boolean update = false;
+		
+		Connection con;
+                con=getConnection();
+        		
+        try {
+            int s=Integer.parseInt(sum);
+            
+            String strsql = "Update cliente set usuario='"+u+"',clave='"+clave+"' where numSuministro="+s;
+            PreparedStatement pstm = con.prepareStatement(strsql);
+                               
+            pstm.executeUpdate();
+            con.close();
+            update=true;
+            
+        }
+        catch(SQLException e){
+            System.out.println(e.getMessage());
+            update=false;
+        }
+		return update;
+    }
     public List<Consumer> listar(int u) {
         // TODO Auto-generated method stub
 			

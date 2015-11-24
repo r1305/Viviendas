@@ -19,6 +19,9 @@
     <service name="RegistrarUsuario">
       <implementation-class>ws.arqui.RegistrarUsuario</implementation-class>
     </service>
+    <service name="ActualizarCliente">
+      <implementation-class>ws.arqui.ActualizarCliente</implementation-class>
+    </service>
   </services>
   <clients/>
 </jax-ws>
