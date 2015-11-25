@@ -41,7 +41,7 @@ public class DAO {
 		}
 		return con;
 		}
-    
+    //metodo para validar el numero de suministro
     public String validar(int numSuministro) {
         // TODO Auto-generated method stub
 		String log = "";
@@ -72,7 +72,7 @@ public class DAO {
         }
 		return log;
     }
-    
+    //aqui validas si es cliente o admin
     public String login(String u,String p) {
         // TODO Auto-generated method stub
 		String logeado = "";
@@ -98,10 +98,10 @@ public class DAO {
             System.out.println(e);
             logeado="";
         }
-		return logeado;
+		return logeado;//devuelve el tipo de persona que se logea
     }
     
-       
+    //registrar nuevo consumo desde la cola 
     public boolean registrar(String sum,String fecha,String consumo) {
         // TODO Auto-generated method stub
 		boolean logeado = false;
@@ -129,7 +129,7 @@ public class DAO {
         }
 		return logeado;
     }
-    
+    //crear nuevo usuario 
     public boolean registrarUsuario(String sum,String u,String clave,String tipo) {
         // TODO Auto-generated method stub
 		boolean signup = false;
@@ -158,7 +158,7 @@ public class DAO {
         }
 		return signup;
     }
-    
+    //actualizar los datos del usuario
     public boolean actualizarUsuario(String sum,String u,String clave) {
         // TODO Auto-generated method stub
 		boolean update = false;
@@ -183,6 +183,8 @@ public class DAO {
         }
 		return update;
     }
+    
+    //devuelve la lista de consumos para un usuario especifico
     public List<Consumer> listar(int u) {
         // TODO Auto-generated method stub
 			

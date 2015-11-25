@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package ws.arqui;
 
 import javax.jws.WebService;
@@ -21,8 +17,8 @@ public class ActualizarCliente {
      */
     @WebMethod(operationName = "actualizar")
     public boolean actualizar(@WebParam(name = "sum") String sum, @WebParam(name = "user") String user, @WebParam(name = "psw") String psw) {
-        //TODO write your implementation code here:
         
+        //returna boolean para saber si es valido la actualizacion
         boolean ok=false;
         DAO d=new DAO();
         ok=d.actualizarUsuario(sum, user, psw);
