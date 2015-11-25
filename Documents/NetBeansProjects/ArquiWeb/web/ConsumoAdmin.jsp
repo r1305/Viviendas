@@ -4,11 +4,25 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <title>Lista de Consumos</title>
     </head>
     <body>
-        <h1 align="center">Listado</h1>
-        <table align="center" border="1">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header" >
+                    
+                    <h2>Listado</h2>
+                    
+                </div>
+                
+            </div>
+        </nav>
+       <div class="container-fluid">
+        <table class="table table-bordered">
             <thead align="center">
                 <tr>
                     <td>Suministro</td>
@@ -27,7 +41,11 @@
                 </c:forEach>
                 
             </tbody>
+            
         </table>
-        <p align="center"><a href="Admin.jsp">Regresar</a></p>
+           <button align="center" type="button" class="btn btn-primary" onclick="location.href='Admin.jsp'">Regresar</button>
+           
+       </div>
+        
     </body>
 </html>
