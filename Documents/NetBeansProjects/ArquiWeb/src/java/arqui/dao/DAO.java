@@ -10,6 +10,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import ws.arqui.Consumer;
 
 /**
@@ -71,6 +73,35 @@ public class DAO {
             sum=0;
         }
 		return sum;
+    }
+    
+    public List<Consumer> listarTodos() {
+        // TODO Auto-generated method stub
+			
+		Connection con;
+                con=getConnection();
+                List<Consumer> l=new ArrayList<>();
+        
+        try {
+            
+            String strsql = "SELECT * FROM consumo";
+            PreparedStatement pstm = con.prepareStatement(strsql);
+            
+            
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){
+                System.out.println(rs.getString("fecha"));
+                Consumer c=new Consumer();
+                c.setConsumo(rs.getFloat("consumo"));
+                c.setFecha(rs.getString("fecha"));
+                c.setSuministro(rs.getInt("suministro"));
+                l.add(c);
+            }
+            rs.close();
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+            return l;
     }
     
 }

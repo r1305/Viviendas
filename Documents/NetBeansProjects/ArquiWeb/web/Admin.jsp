@@ -22,10 +22,12 @@
         </nav>
         <div class="container">
             <div class="jumbotron">
-                <h2>Listar consumos</h2>      
+                <h2>Administrar Clientes</h2>      
                 <form action="ListarConsumos">
-                    <button type="submit" class="btn btn-primary">Mostrar</button>
-                    <input type="text" name="sum" maxlength="6">
+                    <button type="button" onClick="location.href='ListarClientes.jsp'" class="btn btn-primary">
+                        Ver
+                    </button>
+                    
                 </form>
             </div>
         </div>
@@ -37,47 +39,9 @@
                 </form>
             </div>
         </div>
-        <div class="container">
-            <div class="jumbotron">
-                <h2>Registrar nuevo usuario</h2>      
-                <form role="form" action="RegistrarUsuario">
-                    <div class="form-group">
-                        <label >Usuario:</label>
-                        <input type="text" class="form-control" name="user" placeholder="Ingrese usuario">
-                    </div>
-                    <div class="form-group">
-                        <label >Contraseña:</label>
-                        <input type="password" class="form-control" name="psw" placeholder="Ingrese contraseña">
-                    </div>
-                    <div class="form-group">
-                        <label >N° Suministro:</label>
-                        <input type="text" maxlength="6" class="form-control" name="sum" placeholder="Ingrese suministro">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Registrar</button>
-                </form>
-            </div>
-        </div>
         
-        <div class="container">
-            <div class="jumbotron">
-                <h2>Actualizar Usuario</h2>      
-                <form role="form" action="Update">
-                    <div class="form-group">
-                        <label >Usuario:</label>
-                        <input type="text" class="form-control" name="user" placeholder="Ingrese usuario">
-                    </div>
-                    <div class="form-group">
-                        <label >Contraseña:</label>
-                        <input type="password" class="form-control" name="psw" placeholder="Ingrese contraseña">
-                    </div>
-                    <div class="form-group">
-                        <label >N° Suministro:</label>
-                        <input type="number" class="form-control" name="sum" placeholder="Ingrese suministro">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Actualizar</button>
-                </form>
-            </div>
-        </div>
+        
+        
         
         
         
