@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <script type="text/javascript" src="http://www.parsecdn.com/js/parse-latest.js"></script>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header" >
+
+                    <h2>INFORME DE COBIT</h2>
+
+                </div>
+
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="jumbotron">
+                <form role="form">
+                    <input type="hidden" value="1" class="form-control" id="origen">
+                    <div class="form-group">
+                        <label for="origen">Origen de la Evaluación:</label>
+                        <input type="text" class="form-control" id="origen">
+                    </div>
+                    <div class="form-group">
+                        <label for="ob">Objeto de la Evaluación:</label>
+                        <input type="text" class="form-control" id="ob">
+                    </div>
+                    <div class="form-group">
+                        <label for="detalle">Detalle Debilidad:</label>
+                        <input type="text" class="form-control" id="detalle">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="sel1">Principios:</label>
+                        <select class="form-control" id="sel1" onchange="procesos()">
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="sel2">Procesos:</label>
+                        <select class="form-control" id="sel2" onchange="definicion()">
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="def">Proceso COBIT5:</label>
+                        <textarea class="form-control" rows="3" id="def"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="crec">Recomendación:</label>
+                        <textarea class="form-control" rows="4" id="rec"></textarea>
+                    </div>
+                    <button type="button" onclick="guardar()" class="btn btn-primary">Finalizar</button>
+                    <button type="button" onclick="otro()" class="btn btn-primary">Agregar Nueva Debilidad</button>
+
+                </form>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            Parse.initialize("48dTGnFSrTdYPmlfc4w45FJpxa9zqJAN7srfFpso", "4fryA1WczqFjzX1lPMvQjCHGsosxqubkkxQYyizf");
+            $(document).ready(function () {
+                var query = new Parse.Query("Coso");
+
+                query.find({
+                    success: function (results) {
+
+                        // Do something with the returned Parse.Object values
+                        for (var i = 0; i < results.length; i++) {
+                            var object = results[i];
+
+
+                            $("#sel1").append("<option>" + object.get("Principio") + "</option>");
+                        }
+                    },
+                    error: function (error) {
+                        alert("Error: " + error.code + " " + error.message);
+                    }
+                });
+            });
+            function definicion() {
+                var q = new Parse.Query("Procesos");
+                q.equalTo("procesos", $("#sel2").val());
+                q.find({
+                    success: function (q) {
+
+
+                        for (var i = 0; i < q.length; i++) {
+                            var object = q[i];
+
+                        }
+                        document.getElementById("def").innerHTML = object.get("definicion");
+                    },
+                    error: function (error) {
+                        alert("Error: " + error.code + " " + error.message);
+                    }
+                });
+            }
+
+            function procesos() {
+                $("#sel2").find("option").remove();
+                var query = new Parse.Query("Coso");
+                var principio;
+                query.equalTo("Principio", $("#sel1").val());
+                query.find({
+                    success: function (query) {
+
+                        // Do something with the returned Parse.Object values
+                        for (var i = 0; i < query.length; i++) {
+                            var object = query[i];
+
+                            principio = object.id;
+                        }
+                        var q = new Parse.Query("Procesos");
+                        q.equalTo("idPrin", principio);
+                        q.find({
+                            success: function (a) {
+
+
+                                for (var i = 0; i < a.length; i++) {
+                                    var object = a[i];
+                                    $("#sel2").append("<option>" + object.get("procesos") + "</option>");
+                                }
+
+                            },
+                            error: function (error) {
+                                alert("Error: " + error.code + " " + error.message);
+                            }
+                        });
+                    },
+                    error: function (error) {
+                        alert("Error: " + error.code + " " + error.message);
+                    }
+                });
+
+            }
+            function guardar() {
+                var GameScore = Parse.Object.extend("Evaluacion");
+                var gameScore = new GameScore();
+
+                gameScore.set("objeto", $("#ob").val());
+                gameScore.set("origen", $("#origen").val());
+
+
+                gameScore.save(null, {
+                    success: function (gameScore) {
+                        // Execute any logic that should take place after the object is saved.
+                        alert('New object created with objectId: ' + gameScore.id);
+                        var Game = Parse.Object.extend("Debilidades");
+                        var game = new Game();
+
+                        game.set("detalle", $("#detalle").val());
+                        game.set("principio", $("#sel1").val());
+                        game.set("proceso", $("#sel2").val());
+                        game.set("id_evaluacion", gameScore.id);
+                        game.set("definicion",$("#def").val());
+                        game.set("recomendacion",$("#rec").val());
+
+
+                        game.save(null, {
+                            success: function (game) {
+                                // Execute any logic that should take place after the object is saved.
+                                alert('New object created with objectId: ' + gameScore.id);
+
+                            },
+                            error: function (game, error) {
+                                // Execute any logic that should take place if the save fails.
+                                // error is a Parse.Error with an error code and message.
+                                alert('Failed to create new object, with error code: ' + error.message);
+                            }
+                        });
+
+                    },
+                    error: function (gameScore, error) {
+                        // Execute any logic that should take place if the save fails.
+                        // error is a Parse.Error with an error code and message.
+                        alert('Failed to create new object, with error code: ' + error.message);
+                    }
+                });
+
+            }
+            
+            function otro() {
+                var GameScore = Parse.Object.extend("Evaluacion");
+                var gameScore = new GameScore();
+
+                gameScore.set("objeto", $("#ob").val());
+                gameScore.set("origen", $("#origen").val());
+
+
+                gameScore.save(null, {
+                    success: function (gameScore) {
+                        // Execute any logic that should take place after the object is saved.
+                        alert('New object created with objectId: ' + gameScore.id);
+                        var Game = Parse.Object.extend("Debilidades");
+                        var game = new Game();
+
+                        game.set("detalle", $("#detalle").val());
+                        game.set("principio", $("#sel1").val());
+                        game.set("proceso", $("#sel2").val());
+                        game.set("id_evaluacion", gameScore.id);
+                        game.set("definicion",$("#def").val());
+                        game.set("recomendacion",$("#rec").val());
+
+
+                        game.save(null, {
+                            success: function (game) {
+                                // Execute any logic that should take place after the object is saved.
+                                alert('New object created with objectId: ' + gameScore.id);
+
+                            },
+                            error: function (game, error) {
+                                // Execute any logic that should take place if the save fails.
+                                // error is a Parse.Error with an error code and message.
+                                alert('Failed to create new object, with error code: ' + error.message);
+                            }
+                        });
+
+                    },
+                    error: function (gameScore, error) {
+                        // Execute any logic that should take place if the save fails.
+                        // error is a Parse.Error with an error code and message.
+                        alert('Failed to create new object, with error code: ' + error.message);
+                    }
+                });
+                document.getElementById("detalle").innerHTML = "";
+                document.getElementById("def").innerHTML = "";
+                document.getElementById("rec").innerHTML = "";
+            }
+            
+
+
+        </script>
+
+    </body>
+</html>
