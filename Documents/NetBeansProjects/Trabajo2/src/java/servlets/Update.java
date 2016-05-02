@@ -5,17 +5,26 @@
  */
 package servlets;
 
+import dto.Conexion;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author Rogger
  */
+@MultipartConfig(fileSizeThreshold = 1024 * 1024,
+        maxFileSize = 1024 * 1024 * 5, maxRequestSize = 1024 * 1024 * 5 * 5)
 public class Update extends HttpServlet {
 
     /**
@@ -30,18 +39,72 @@ public class Update extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Update</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Update at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        final Part a1 = request.getPart("imagen");
+        int id=Integer.parseInt(request.getParameter("id"));
+        String dir = request.getParameter("dir");
+        String desc = request.getParameter("desc");
+        float prestamo = Float.parseFloat(request.getParameter("precio"));
+        
+        Conexion c=new Conexion();
+        String file=writeFile(a1);
+        boolean ok=c.update(dir, desc, prestamo, file,id);
+        if(ok){
+            response.sendRedirect("operario.jsp#listado");
         }
+    }
+    
+    private String getFileName(final Part part) {
+        String ruta = "";
+        final String partHeader = part.getHeader("content-disposition");
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                ruta = content.substring(
+                        content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return ruta;
+    }
+
+    public String writeFile(Part filePart) throws IOException {
+        //System.out.println(filePart.getName());
+        String file=getFileName(filePart);
+        String fileName = file.substring(file.lastIndexOf("\\")+1);
+        //writer.println("File name "+fileName);
+        //System.out.println("file name "+fileName);
+        OutputStream out = null;
+        InputStream filecontent = null;
+        final String path = "D:\\";
+        //writer.println("path "+path);
+        //System.out.println("path "+path);
+        String ruta = "";
+        try {
+            out = new FileOutputStream(new File(path + File.separator
+                    + fileName));
+
+            //writer.println("out "+out);
+            //System.out.println("out "+out);
+            filecontent = filePart.getInputStream();
+            //System.out.println(filecontent);
+
+            int read = 0;
+            final byte[] bytes = new byte[1024];
+
+            while ((read = filecontent.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+            ruta = path + fileName;
+
+        } catch (Exception fne) {
+            System.out.println(fne.toString());
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+            if (filecontent != null) {
+                filecontent.close();
+            }
+        }
+        return ruta;
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

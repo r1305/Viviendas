@@ -27,7 +27,7 @@
             select * from viviendas
         </sql:query>
         <sql:query dataSource="${snapshot}" var="m">
-            select * from viviendas where id=${param.cod}
+            select * from viviendas
         </sql:query>
         <div class="container">
             <h2>Viviendas</h2>
@@ -40,13 +40,13 @@
                 <div class="container" style="margin-top: 15px;max-height: 500px;overflow-y: auto">
 
                     <c:forEach var="a" items="${n.rows}">
-                        <div class="card" id='card-${a.id}'>
+                        <div class="card">
                             <div class="card-image waves-effect waves-block waves-light">
                                 <img class="activator" src="Imagen?cod=${a.id}" >
                             </div>
                             <div class="card-content">
                                 <span class="card-title activator grey-text text-darken-4">${a.direccion}<i class="material-icons right">more_vert</i></span>
-                                <p><a href="operario.jsp?cod=1#editar" onclick="location.reload()">This is a link</a></p>
+                                <p><a href="operario.jsp?cod=${a.id}#editar" onclick="location.reload()">This is a link</a></p>
                             </div>
                             <div class="card-reveal">
                                 <span class="card-title grey-text text-darken-4">${a.precio}<i class="material-icons right">close</i></span>
@@ -79,11 +79,10 @@
                 </form>
             </div>
             <div id="editar" class="col s12">
-                <h2>Editar</h2>
-                <form role="form" action="Registrar" method="POST" enctype="multipart/form-data">
+                <form role="form" action="Update" method="POST" enctype="multipart/form-data">
                     <c:forEach var="a" items="${m.rows}">
-                        <div class="card-image">
-                            <img class="activator" src="Imagen?cod=${a.id}" >
+                        <div class="card-image" style="text-align: center">
+                            <img class="activator" src="Imagen?cod=${a.id}" style="max-height: 140px;">
                         </div>
                         <div class="row">
                             <label for="dir">Dirección:</label>
@@ -100,6 +99,7 @@
                         <div class="row">
                             <input type="file" name="imagen">
                         </div>
+                            <input type="text" value="${a.id}" hidden="" name="id">
                         
                         <button type="submit" class="btn btn-default">Guardar</button>
                     </c:forEach>

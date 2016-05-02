@@ -167,10 +167,38 @@ public class Conexion {
 
             PreparedStatement ps = conn.prepareStatement(query);
 
-            //method to insert a stream of bytes
-            /**
-             * ** archivo1 ***
-             */
+            ps.setBinaryStream(1, fis1, len1);
+            ps.executeUpdate();
+            ok = true;
+            ps.close();
+            conn.close();
+        } catch (Exception ex) {
+            ok = false;
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return ok;
+    }
+    
+    public boolean update(String dir, String desc, float precio, String file,int id) {
+
+        boolean ok = false;
+        int len1;
+
+        try {
+
+            Connection conn = getConexion();
+
+            String query = "update viviendas set direccion='"+dir+"',descripcion='"+desc+"',precio="+precio+",foto=? where id="+id;
+
+            File f1 = new File(file);
+
+            FileInputStream fis1 = new FileInputStream(f1);
+
+            len1 = (int) f1.length();
+
+            PreparedStatement ps = conn.prepareStatement(query);
+
             ps.setBinaryStream(1, fis1, len1);
             ps.executeUpdate();
             ok = true;
