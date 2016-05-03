@@ -17,7 +17,22 @@
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
         <script src="js/funciones.js" type="text/javascript"></script>
-
+        <script>
+            <%
+                Cookie[] cookies = null;
+                // Get an array of Cookies associated with this domain
+                cookies = request.getCookies();
+                String nombre = "";
+                for (int i = 0; i < cookies.length; i++) {
+                    if (cookies[i].getName().equals("user")) {
+                        nombre = cookies[i].getValue();
+                    }
+                }
+                if (nombre == null || nombre.equals("")) {
+                    response.sendRedirect("index_admin.jsp");
+                }
+            %>
+        </script>
     </head>
     <body>
         <script>
@@ -41,7 +56,7 @@
             <div id="listado" class="col s12"> 
                 <c:forEach var="a" items="${n.rows}">
                     <div class="card" style="display: inline-block;">
-                        <div class="card-image waves-effect waves-light" style="background: orange">
+                        <div class="card-image waves-effect waves-light" style="background: orange;width:100%">
                             <h4 style="background: orange;text-align: center">Hola</h4>
                             <img class="activator" src="Imagen?cod=${a.id}">
                             <!--<div class="carousel">

@@ -6,7 +6,7 @@ function login() {
                 user: u,
                 psw: p
             },
-            function (data, status) {
+            function (data) {
                 if (data === "true") {
                     window.location.href = "cliente.jsp";
                 } else {

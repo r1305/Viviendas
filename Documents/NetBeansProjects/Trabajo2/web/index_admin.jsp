@@ -1,3 +1,8 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!--libreria para hacer la conexión a la base de datos-->
+<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
+<!--libreria para recorrer las filas que devuelvan los query-->
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -19,15 +24,17 @@
             <div class="container" style="width: 450px;background:" >
                 <h2>Login</h2>
 
+                <form action="Login" method="Post">
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <input type="email" class="form-control" id="email" placeholder="Enter email">
+                        <input type="email" class="form-control" name="email" placeholder="Enter email">
                     </div>
                     <div class="form-group">
                         <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+                        <input type="password" class="form-control" name="pwd" placeholder="Enter password">
                     </div>
-                    <button type="submit" class="btn btn-default" onclick="login();">Login</button>
+                    <input type="submit" class="btn btn-default">
+                </form>
             </div>
         </div>
     </center>
