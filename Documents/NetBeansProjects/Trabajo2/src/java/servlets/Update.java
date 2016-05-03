@@ -49,7 +49,7 @@ public class Update extends HttpServlet {
         String file=writeFile(a1);
         boolean ok=c.update(dir, desc, prestamo, file,id);
         if(ok){
-            response.sendRedirect("operario.jsp#listado");
+            response.sendRedirect("operario.jsp");
         }
     }
     

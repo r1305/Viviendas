@@ -28,6 +28,9 @@
                     $("td").css("background-color", "lightgray");
                 });
             });
+            $(document).ready(function () {
+                $('.carousel').carousel();
+            });
         </script>
     </head>
     <body>
@@ -38,22 +41,51 @@
         <sql:query dataSource="${snapshot}" var="n">
             select * from viviendas where Estado='Activa'
         </sql:query>
-
-        <div class="container" style="overflow-y: scroll;margin-top: 15px;max-height: 500px;width: 100%">    
-            <c:forEach var="a" items="${n.rows}">
-                <div class="card">
-                    <div class="card-image waves-effect waves-block waves-light">
-                        <img class="activator" src="Imagen?cod=${a.id}" style="width: 100%;height: 156px">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">${a.direccion}<i class="material-icons right">more_vert</i></span>
-                    </div>
-                    <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">${a.precio}<i class="material-icons right">close</i></span>
-                        <textarea readonly="true">${a.descripcion}</textarea>
-                    </div>
+        <nav>
+            <div class="nav-wrapper">
+                <a href="#" class="brand-logo">Logo</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li>¡Hola! Rogger</li>
+                    <li><a href="sass.html">Cerrar sesión</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!--<div class="container" style="overflow-y: scroll;margin-top: 15px;max-height: 500px;width: 100%">-->    
+        <c:forEach var="a" items="${n.rows}">
+            <!--<div class="card" style="width:350px;height: 250px;display: inline-block;margin-left: 45px">
+                <div class="card-image waves-effect waves-block waves-light">
+                    <img class="activator" src="Imagen?cod=${a.id}" style="max-height: 150px;">
                 </div>
-            </c:forEach>                    
-        </div>
+                <div class="card-content">
+                    <span class="card-title activator grey-text text-darken-4">${a.direccion}<i class="material-icons right">more_vert</i></span>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">${a.precio}<i class="material-icons right">close</i></span>
+                    <textarea readonly="true">${a.descripcion}</textarea>
+                </div>
+            </div>-->
+            <div class="card" style="display: inline-block;">
+                <div class="card-image waves-effect waves-light" style="background: orange">
+                    <h4 style="background: orange;text-align: center">Hola</h4>
+                    <img class="activator" src="Imagen?cod=${a.id}">
+                    <!--<div class="carousel">
+                        <a class="carousel-item" href="#${a.id}"><img src="Imagen?cod=${a.id}"></a>
+                    </div>-->
+                </div>
+                <div class="card-content">
+                    <p><span class="card-title activator grey-text text-darken-4">${a.direccion}</span></p>
+                    <span class="card-title activator grey-text text-darken-4">${a.direccion}</span>
+                </div>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4">${a.precio}<i class="material-icons right">close</i></span>
+                    <textarea readonly="true">${a.descripcion}</textarea>
+                </div>
+            </div>
+
+        </c:forEach>
+
+
+
+        <!--</div>-->
     </body>
 </html>

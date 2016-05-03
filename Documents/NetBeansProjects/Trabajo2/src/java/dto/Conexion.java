@@ -211,5 +211,28 @@ public class Conexion {
 
         return ok;
     }
+    
+    public boolean updateEstado(String estado,int id) {
+
+        boolean ok = false;
+        try {
+
+            Connection conn = getConexion();
+
+            String query = "update viviendas set estado='"+estado+"' where id="+id;
+
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.executeUpdate();
+            ok = true;
+            ps.close();
+            conn.close();
+        } catch (Exception ex) {
+            ok = false;
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return ok;
+    }
+    
 
 }
