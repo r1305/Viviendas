@@ -42,7 +42,6 @@ public class Login extends HttpServlet {
         c.setMaxAge(365*24*60);
         response.addCookie(c);
         response.sendRedirect("cliente.jsp");
-        response.getWriter().write(String.valueOf(ok));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

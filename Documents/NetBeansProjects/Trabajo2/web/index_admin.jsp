@@ -24,7 +24,7 @@
             <div class="container" style="width: 450px;background:" >
                 <h2>Login</h2>
 
-                <form action="Login" method="Post">
+                <form action="LoginAdmin" method="Post">
                     <div class="form-group">
                         <label for="email">Email:</label>
                         <input type="email" class="form-control" name="email" placeholder="Enter email">

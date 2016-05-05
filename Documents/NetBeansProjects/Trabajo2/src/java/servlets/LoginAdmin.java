@@ -8,6 +8,7 @@ package servlets;
 import dto.Conexion;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,24 +31,30 @@ public class LoginAdmin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String u=request.getParameter("user");
-        String p=request.getParameter("psw");
-        Conexion con=new Conexion();
-        boolean ok=con.getLoginOperarios(u, p);
-        response.getWriter().write(String.valueOf(ok));
+        String u = request.getParameter("email");
+        String p = request.getParameter("pwd");
+        System.out.println(u);
+        System.out.println(p);
+        Conexion con = new Conexion();
+        boolean ok = con.getLoginClientes(u, p);
+        System.out.println(String.valueOf(ok));
+        Cookie c = new Cookie("user", u);
+        c.setMaxAge(365 * 24 * 60);
+        response.addCookie(c);
+        response.sendRedirect("operario.jsp");
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+/**
+ * Handles the HTTP <code>GET</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+@Override
+        protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -61,7 +68,7 @@ public class LoginAdmin extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -72,7 +79,7 @@ public class LoginAdmin extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+        public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
