@@ -38,19 +38,22 @@ public class Registrar extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         final Part a1 = request.getPart("imagen");
         String dir = request.getParameter("dir");
         String desc = request.getParameter("desc");
+        System.out.println(desc);
         float prestamo = Float.parseFloat(request.getParameter("precio"));
-        
-        Conexion c=new Conexion();
-        String file=writeFile(a1);
-        boolean ok=c.registro(dir, desc, prestamo, file);
-        if(ok){
+
+        Conexion c = new Conexion();
+        String file = writeFile(a1);
+        boolean ok = c.registro(dir, desc, prestamo, file);
+        if (ok) {
             response.sendRedirect("operario.jsp");
         }
     }
-    
+
     private String getFileName(final Part part) {
         String ruta = "";
         final String partHeader = part.getHeader("content-disposition");
@@ -65,8 +68,8 @@ public class Registrar extends HttpServlet {
 
     public String writeFile(Part filePart) throws IOException {
         //System.out.println(filePart.getName());
-        String file=getFileName(filePart);
-        String fileName = file.substring(file.lastIndexOf("\\")+1);
+        String file = getFileName(filePart);
+        String fileName = file.substring(file.lastIndexOf("\\") + 1);
         //writer.println("File name "+fileName);
         //System.out.println("file name "+fileName);
         OutputStream out = null;

@@ -49,7 +49,7 @@ public class Conexion {
         }
         return con;
     }
-
+    
     public boolean getLoginClientes(String u, String p) {
         // TODO Auto-generated method stub
         boolean ok = false;
@@ -74,6 +74,54 @@ public class Conexion {
             ok = false;
         }
         return ok;
+    }
+
+    public String getNombre(String u) {
+        // TODO Auto-generated method stub
+        String nombre="";
+
+        Connection con;
+        con = getConexion();
+
+        try {
+
+            String strsql = "select * from clientes where correo='"+u+"'";
+            PreparedStatement pstm = con.prepareStatement(strsql);
+            
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                nombre=rs.getString("nombre");
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+            nombre = "";
+        }
+        return nombre;
+    }
+    
+    public String getNombreOperarios(String u) {
+        // TODO Auto-generated method stub
+        String nombre="";
+
+        Connection con;
+        con = getConexion();
+
+        try {
+
+            String strsql = "select * from operarios where correo='"+u+"'";
+            PreparedStatement pstm = con.prepareStatement(strsql);
+            
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                nombre=rs.getString("nombre");
+            }
+            rs.close();
+        } catch (SQLException e) {
+            System.out.println(e);
+            nombre = "";
+        }
+        return nombre;
     }
 
     public boolean getLoginOperarios(String u, String p) {
@@ -109,7 +157,7 @@ public class Conexion {
         byte[] buffer = null;
         try {
             cn = getConexion();
-            String sql = "SELECT foto FROM viviendas.viviendas where id= ?";
+            String sql = "SELECT foto FROM viviendas.casas where id= ?";
             pr = cn.prepareStatement(sql);
             pr.setInt(1, idProducto);
             rs = pr.executeQuery();
@@ -147,7 +195,7 @@ public class Conexion {
 
             Connection conn = getConexion();
 
-            String query = "INSERT INTO viviendas"
+            String query = "INSERT INTO casas"
                     + "(direccion"
                     + ",descripcion"
                     + ",precio"
@@ -189,7 +237,7 @@ public class Conexion {
 
             Connection conn = getConexion();
 
-            String query = "update viviendas set direccion='"+dir+"',descripcion='"+desc+"',precio="+precio+",foto=? where id="+id;
+            String query = "update casas set direccion='"+dir+"',descripcion='"+desc+"',precio="+precio+",foto=? where id="+id;
 
             File f1 = new File(file);
 
@@ -219,7 +267,7 @@ public class Conexion {
 
             Connection conn = getConexion();
 
-            String query = "update viviendas set estado='"+estado+"' where id="+id;
+            String query = "update casas set estado='"+estado+"' where id="+id;
 
             PreparedStatement ps = conn.prepareStatement(query);
             ps.executeUpdate();

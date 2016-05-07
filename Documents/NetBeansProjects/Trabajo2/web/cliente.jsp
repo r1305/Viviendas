@@ -1,3 +1,4 @@
+<%@page import="dto.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--libreria para hacer la conexión a la base de datos-->
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
@@ -37,13 +38,13 @@
                 Cookie[] cookies = null;
                 // Get an array of Cookies associated with this domain
                 cookies = request.getCookies();
-                String nombre = "";
+                String correo = "";
                 for (int i = 0; i < cookies.length; i++) {
                     if (cookies[i].getName().equals("user")) {
-                        nombre = cookies[i].getValue();
+                        correo = cookies[i].getValue();
                     }
                 }
-                if (nombre == null || nombre.equals("")) {
+                if (correo == null || correo.equals("")) {
                     response.sendRedirect("index.jsp");
                 }
             %>
@@ -53,55 +54,40 @@
         <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
                            url="jdbc:mysql://localhost:3306/viviendas"
                            user="root"  password="root"/>
-        <!-- query para obtener la cantidad de solicitudes pendientes del usuario logeado-->
         <sql:query dataSource="${snapshot}" var="n">
-            select * from viviendas where Estado='Activa'
+            select * from casas where Estado='Activa'
         </sql:query>
+        <% Conexion c = new Conexion();%>
         <nav>
-            <div class="nav-wrapper">
+            <div class="nav">
                 <a href="#" class="brand-logo">Logo</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li>¡Hola! Rogger</li>
-                    <li><a href="Logout">Cerrar sesión</a></li>
+
+                <ul id="nav-mobile" class="right">
+                    <li style="font-size: 22px">¡Hola! <%=c.getNombre(correo)%></li>
+                    <a href="Logout" style="float: right"><i class="small material-icons"> input</i></a>
                 </ul>
             </div>
         </nav>
-        <!--<div class="container" style="overflow-y: scroll;margin-top: 15px;max-height: 500px;width: 100%">-->    
-        <c:forEach var="a" items="${n.rows}">
-            <!--<div class="card" style="width:350px;height: 250px;display: inline-block;margin-left: 45px">
-                <div class="card-image waves-effect waves-block waves-light">
-                    <img class="activator" src="Imagen?cod=${a.id}" style="max-height: 150px;">
+        <div class="container" style="overflow-y: scroll;margin-top: 15px;max-height: 500px;width: 100%">   
+            <c:forEach var="a" items="${n.rows}">
+                <div class="card" style="display: inline-block;" style="height: 150px;">
+                    <div class="card-image waves-effect waves-light" style="background: orange;width:300px">
+                        <p style="background: orange;text-align: center">${a.direccion}</p>
+                        <img class="activator" src="Imagen?cod=${a.id}" style="height: 150px">
+                    </div>
+                    <div class="card-content">
+                        <center>
+                            <p><span class="card-title activator grey-text text-darken-4">${a.direccion}</span></p>
+                            <span class="card-title activator grey-text text-darken-4">${a.precio}</span>
+                        </center>
+                    </div>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                        <textarea readonly="true" style="height: 100px">${a.descripcion}</textarea>
+                    </div>
                 </div>
-                <div class="card-content">
-                    <span class="card-title activator grey-text text-darken-4">${a.direccion}<i class="material-icons right">more_vert</i></span>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">${a.precio}<i class="material-icons right">close</i></span>
-                    <textarea readonly="true">${a.descripcion}</textarea>
-                </div>
-            </div>-->
-            <div class="card" style="display: inline-block;">
-                <div class="card-image waves-effect waves-light" style="background: orange;width:100%">
-                    <h4 style="background: orange;text-align: center">Hola</h4>
-                    <img class="activator" src="Imagen?cod=${a.id}">
-                    <!--<div class="carousel">
-                        <a class="carousel-item" href="#${a.id}"><img src="Imagen?cod=${a.id}"></a>
-                    </div>-->
-                </div>
-                <div class="card-content">
-                    <p><span class="card-title activator grey-text text-darken-4">${a.direccion}</span></p>
-                    <span class="card-title activator grey-text text-darken-4">${a.direccion}</span>
-                </div>
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">${a.precio}<i class="material-icons right">close</i></span>
-                    <textarea readonly="true">${a.descripcion}</textarea>
-                </div>
-            </div>
 
-        </c:forEach>
-
-
-
-        <!--</div>-->
+            </c:forEach>
+        </div>
     </body>
 </html>
