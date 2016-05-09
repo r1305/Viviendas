@@ -16,7 +16,7 @@
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
         <!--Import Google Icon Font-->
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
         <script src="js/funciones.js" type="text/javascript"></script>
@@ -47,7 +47,7 @@
         <%List<Viviendas> v = c.getViviendas();%>  
         <nav>
             <div class="nav">
-                <a href="#" class="brand-logo">Logo</a>
+                <a href="#" class="brand-logo">Vivi-Found</a>
 
                 <ul id="nav-mobile" class="right">
                     <li style="font-size: 22px">¡Hola! <%=c.getNombreOperarios(correo)%></li>
@@ -82,10 +82,10 @@
                             <a href="editar.jsp?cod=<%=v.get(i).getId()%>">Editar</a>
                         </div>
                         <%if (v.get(i).getEstado().equals("No activa")) {%>
-                        <a class="waves-effect waves-light btn" style="width: 100%" onclick="activar(<%=v.get(i).getId()%>)">Desactivar</a>
+                        <a class="waves-effect waves-light btn" style="width: 100%" onclick="activar(<%=v.get(i).getId()%>)">Activar</a>
                         <%} else {%>
+                        <a class="waves-effect waves-light btn" style="width: 100%" onclick="desactivar(<%=v.get(i).getId()%>)">Desactivar</a>
 
-                        <a class="waves-effect waves-light btn" style="width: 100%" onclick="desactivar(<%=v.get(i).getId()%>)">Activar</a>
                         <%}%>
                     </div>
                     <%}%>                    
