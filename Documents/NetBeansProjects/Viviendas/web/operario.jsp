@@ -79,14 +79,14 @@
                             <textarea readonly="true" style="height: 100px"><%=v.get(i).getDescripción()%></textarea>
                         </div>
                         <div class="card-action">
-                            <a href="editar.jsp?cod=${a.id}">Editar</a>
+                            <a href="editar.jsp?cod=<%=v.get(i).getId()%>">Editar</a>
                         </div>
-                            <c:if test="<%=v.get(i).get">
-                            <a class="waves-effect waves-light btn" style="width: 100%" onclick="desactivar(${a.id})">Desactivar</a>
-                        </c:if>
-                        <c:if test="${a.estado!='Activa'}">
-                            <a class="waves-effect waves-light btn" style="width: 100%" onclick="activar(${a.id})">Activar</a>
-                        </c:if>
+                        <%if (v.get(i).getEstado().equals("No activa")) {%>
+                        <a class="waves-effect waves-light btn" style="width: 100%" onclick="activar(<%=v.get(i).getId()%>)">Desactivar</a>
+                        <%} else {%>
+
+                        <a class="waves-effect waves-light btn" style="width: 100%" onclick="desactivar(<%=v.get(i).getId()%>)">Activar</a>
+                        <%}%>
                     </div>
                     <%}%>                    
                 </div>
