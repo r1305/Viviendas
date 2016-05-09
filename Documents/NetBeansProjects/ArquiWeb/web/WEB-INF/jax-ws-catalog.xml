@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://192.168.1.35:8080/WS/Login?WSDL" uri="wsdl/192.168.1.35_8080/WS/Login.wsdl"/>
+    <system systemId="http://192.168.1.35:8080/WS/Login?xsd=1" uri="wsdl/192.168.1.35_8080/WS/Login.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/WS/Server?WSDL" uri="wsdl/localhost_8080/WS/Server.wsdl"/>
+    <system systemId="http://localhost:8080/WS/Server?xsd=1" uri="wsdl/localhost_8080/WS/Server.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/WS/Client?WSDL" uri="wsdl/localhost_8080/WS/Client.wsdl"/>
+    <system systemId="http://localhost:8080/WS/Client?xsd=1" uri="wsdl/localhost_8080/WS/Client.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/WS/Listar?WSDL" uri="wsdl/localhost_8080/WS/Listar.wsdl"/>
+    <system systemId="http://localhost:8080/WS/Listar?xsd=1" uri="wsdl/localhost_8080/WS/Listar.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/WS/Login?WSDL" uri="wsdl/localhost_8080/WS/Login.wsdl"/>
+    <system systemId="http://localhost:8080/WS/Login?xsd=1" uri="wsdl/localhost_8080/WS/Login.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/WS/RegistrarUsuario?WSDL" uri="wsdl/localhost_8080/WS/RegistrarUsuario.wsdl"/>
+    <system systemId="http://localhost:8080/WS/RegistrarUsuario?xsd=1" uri="wsdl/localhost_8080/WS/RegistrarUsuario.xsd_1.xsd"/>
+    <system systemId="http://localhost:8080/WS/ActualizarCliente?WSDL" uri="wsdl/localhost_8080/WS/ActualizarCliente.wsdl"/>
+    <system systemId="http://localhost:8080/WS/ActualizarCliente?xsd=1" uri="wsdl/localhost_8080/WS/ActualizarCliente.xsd_1.xsd"/>
+</catalog>
