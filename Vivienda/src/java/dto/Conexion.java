@@ -30,9 +30,9 @@ import javax.imageio.ImageIO;
  */
 public class Conexion {
 
-    //String url = "jdbc:mysql://us-cdbr-iron-east-03.cleardb.net:3306/heroku_8db68c53d43a83f?user=b3c1f1d9e47f4b&password=2bf408d7";
+    String url = "jdbc:mysql://us-cdbr-iron-east-03.cleardb.net:3306/heroku_8db68c53d43a83f?user=b3c1f1d9e47f4b&password=2bf408d7";
     //String url = "jdbc:mysql://localhost:3306/heroku_8db68c53d43a83f?user=b3c1f1d9e47f4b&password=2bf408d7";
-    String url = "jdbc:mysql://localhost:3306/viviendas?user=root&password=root";
+    //String url = "jdbc:mysql://localhost:3306/viviendas?user=root&password=root";
 
     public Connection getConexion() {
         java.sql.Connection con = null;
@@ -167,7 +167,7 @@ public class Conexion {
         Viviendas v = null;
         try {
             cn = getConexion();
-            String sql = "SELECT * FROM viviendas.casas where estado='Activa'";
+            String sql = "SELECT * FROM casas where estado='Activa'";
             pr = cn.prepareStatement(sql);
             rs = pr.executeQuery();
 
@@ -226,7 +226,7 @@ public class Conexion {
         Viviendas v = null;
         try {
             cn = getConexion();
-            String sql = "SELECT * FROM viviendas.casas order by estado";
+            String sql = "SELECT * FROM casas order by estado";
             pr = cn.prepareStatement(sql);
             rs = pr.executeQuery();
 
@@ -283,7 +283,7 @@ public class Conexion {
         byte[] buffer = null;
         try {
             cn = getConexion();
-            String sql = "SELECT foto FROM viviendas.casas where id= ?";
+            String sql = "SELECT foto FROM casas where id= ?";
             pr = cn.prepareStatement(sql);
             pr.setInt(1, idProducto);
             rs = pr.executeQuery();

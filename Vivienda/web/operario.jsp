@@ -21,6 +21,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
         <script src="js/funciones.js" type="text/javascript"></script>
         <script>
+            function getUrl(){
+                var a=event.fpfile.url;
+                $("#url").val(a);
+            }
             <%
                 Cookie[] cookies = null;
                 // Get an array of Cookies associated with this domain
@@ -36,6 +40,7 @@
                 }
             %>
         </script>
+        <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
     </head>
     <body>
         <script>
@@ -116,6 +121,8 @@
                             <input class="file-path validate" type="text">
                         </div>
                     </div>
+                    <input type="filepicker" data-fp-apikey="AFNreTDRTfO0sFBEgoucQz" onchange="getUrl()">
+                    <input type="text" id="url" name="url" hidden="">
                     <input type="submit" class="btn btn-default" value="Registrar">
                 </form>
             </div>
