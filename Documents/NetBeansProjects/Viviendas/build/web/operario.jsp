@@ -2,8 +2,6 @@
 <%@page import="java.util.List"%>
 <%@page import="dto.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!--libreria para hacer la conexión a la base de datos-->
-<%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <!--libreria para recorrer las filas que devuelvan los query-->
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
@@ -21,6 +19,10 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
         <script src="js/funciones.js" type="text/javascript"></script>
         <script>
+            function getUrl() {
+                var a = event.fpfile.url;
+                $("#url").val(a);
+            }
             <%
                 Cookie[] cookies = null;
                 // Get an array of Cookies associated with this domain
@@ -36,6 +38,7 @@
                 }
             %>
         </script>
+        <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
     </head>
     <body>
         <script>
@@ -91,34 +94,36 @@
                     <%}%>                    
                 </div>
             </div>
-            <div id="nuevo" class="col s12">                
-                <form role="form" action="Registrar" method="POST" enctype="multipart/form-data">
-                    <div class="row">
-                        <label for="dir">Dirección:</label>
-                        <input type="text" class="form-control" name="dir" placeholder="Ingrese dirección">
-                    </div>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <textarea id="desc" name="desc" class="materialize-textarea" length="255" maxlength="255"></textarea>
-                            <label for="desc">Textarea</label>
+            <div id="nuevo" style="margin-right: 25%;margin-left: 25%">
+                <form action="Registrar" method="POST">
+                    <center>
+                        <div class="row" align="center">
+                            <div class="input-field col s12">
+                                <label for="dir">Dirección:</label>
+                                <input  type="text" class="validate" name="dir">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <label for="precio">Precio:</label>
-                        <input type="text" class="form-control" name="precio" placeholder="Ingrese precio">
-                    </div>
-                    <div class="file-field input-field">
-                        <div class="btn">
-                            <span>File</span>
-                            <input type="file" name="imagen">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <textarea id="desc" name="desc" class="materialize-textarea" length="255" maxlength="255"></textarea>
+                                <label for="desc">Textarea</label>
+                            </div>
                         </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="precio">Precio:</label>
+                                <input  type="text" class="validate" name="precio">
+                            </div>
                         </div>
-                    </div>
-                    <input type="submit" class="btn btn-default" value="Registrar">
+
+                        <div class="row">
+                            <input type="filepicker" data-fp-apikey="AFNreTDRTfO0sFBEgoucQz" onchange="getUrl()">
+                            <input type="text" id="url" name="url" hidden="">
+                        </div>
+                        <input type="submit" class="btn btn-default" value="Registrar">
+                    </center>
                 </form>
-            </div>
+            </div> 
         </div>
     </body>
 </html>

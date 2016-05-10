@@ -30,10 +30,10 @@ import javax.imageio.ImageIO;
  */
 public class Conexion {
 
-    //String url = "jdbc:mysql://us-cdbr-iron-east-03.cleardb.net:3306/heroku_8db68c53d43a83f?user=b3c1f1d9e47f4b&password=2bf408d7";
-    //String url = "jdbc:mysql://localhost:3306/heroku_8db68c53d43a83f?user=b3c1f1d9e47f4b&password=2bf408d7";
-    String url = "jdbc:mysql://localhost:3306/viviendas?user=root&password=root";
+    String url = "jdbc:mysql://us-cdbr-iron-east-03.cleardb.net:3306/heroku_8db68c53d43a83f?user=b3c1f1d9e47f4b&password=2bf408d7";
 
+    //String url = "jdbc:mysql://localhost:3306/heroku_8db68c53d43a83f?user=b3c1f1d9e47f4b&password=2bf408d7";
+    //String url = "jdbc:mysql://localhost:3306/viviendas?user=root&password=root";
     public Connection getConexion() {
         java.sql.Connection con = null;
 
@@ -101,6 +101,7 @@ public class Conexion {
                 nombre = rs.getString("nombre");
             }
             rs.close();
+            con.close();
         } catch (SQLException e) {
             System.out.println(e);
             nombre = "";
@@ -125,6 +126,7 @@ public class Conexion {
                 nombre = rs.getString("nombre");
             }
             rs.close();
+            con.close();
         } catch (SQLException e) {
             System.out.println(e);
             nombre = "";
@@ -151,6 +153,7 @@ public class Conexion {
                 }
             }
             rs.close();
+            con.close();
         } catch (SQLException e) {
             System.out.println(e);
             ok = false;
@@ -167,7 +170,7 @@ public class Conexion {
         Viviendas v = null;
         try {
             cn = getConexion();
-            String sql = "SELECT * FROM viviendas.casas where estado='Activa'";
+            String sql = "SELECT * FROM casas where estado='Activa'";
             pr = cn.prepareStatement(sql);
             rs = pr.executeQuery();
 
@@ -178,45 +181,21 @@ public class Conexion {
                 v.setDescripción(rs.getString("descripcion"));
                 v.setDirección(rs.getString("direccion"));
                 v.setPrecio(rs.getFloat("precio"));
-
-                Blob bin = rs.getBlob("foto");
-                if (bin != null) {
-                    InputStream inStream = bin.getBinaryStream();
-                    int size = (int) bin.length();
-                    buffer = new byte[size];
-
-                    // convert byte array back to BufferedImage
-                    try {
-                        inStream.read(buffer, 0, size);
-                        InputStream in = new ByteArrayInputStream(buffer);
-                        BufferedImage bImageFromConvert = ImageIO.read(in);
-
-                        ImageIO.write(bImageFromConvert, "jpg", new File(
-                                "C:\\Users\\Julian\\Documents\\"
-                                + "NetBeansProjects\\Netbeans2016-1\\Documents\\"
-                                + "NetBeansProjects\\Trabajo2\\web\\image\\"
-                                + v.getId() + ".jpg"));
-
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-                    v.setRuta("image\\" + v.getId() + ".jpg");
-
-                }
+                v.setRuta(rs.getString("foto"));
                 l.add(v);
-                
+
             }
+            pr.close();
+            rs.close();
+            cn.close();
 
         } catch (Exception ex) {
             System.out.println(ex);
-            cn = null;
-            rs = null;
-            pr = null;
         }
 
         return l;
     }
-    
+
     public List<Viviendas> getViviendas() {
         List<Viviendas> l = new ArrayList<>();
         Connection cn;
@@ -226,7 +205,7 @@ public class Conexion {
         Viviendas v = null;
         try {
             cn = getConexion();
-            String sql = "SELECT * FROM viviendas.casas order by estado";
+            String sql = "SELECT * FROM casas order by estado";
             pr = cn.prepareStatement(sql);
             rs = pr.executeQuery();
 
@@ -238,42 +217,48 @@ public class Conexion {
                 v.setDirección(rs.getString("direccion"));
                 v.setPrecio(rs.getFloat("precio"));
                 v.setEstado(rs.getString("estado"));
-                Blob bin = rs.getBlob("foto");
-                if (bin != null) {
-                    InputStream inStream = bin.getBinaryStream();
-                    int size = (int) bin.length();
-                    buffer = new byte[size];
-
-                    // convert byte array back to BufferedImage
-                    try {
-                        inStream.read(buffer, 0, size);
-                        InputStream in = new ByteArrayInputStream(buffer);
-                        BufferedImage bImageFromConvert = ImageIO.read(in);
-
-                        ImageIO.write(bImageFromConvert, "jpg", new File(
-                                "C:\\Users\\Julian\\Documents\\"
-                                + "NetBeansProjects\\Netbeans2016-1\\Documents\\"
-                                + "NetBeansProjects\\Trabajo2\\web\\image\\"
-                                + v.getId() + ".jpg"));
-
-                    } catch (Exception e) {
-                        System.out.println(e);
-                    }
-                    v.setRuta("image\\" + v.getId() + ".jpg");
-
-                }
+                v.setRuta(rs.getString("foto"));
                 l.add(v);
-                
             }
-
+            rs.close();
+            pr.close();
+            cn.close();
         } catch (Exception ex) {
             System.out.println(ex);
-            cn = null;
-            rs = null;
-            pr = null;
+
         }
 
         return l;
+    }
+    
+    public Viviendas getVivienda(int id) {
+        Viviendas v = new Viviendas();
+        Connection cn;
+        ResultSet rs;
+        PreparedStatement pr;
+        try {
+            cn = getConexion();
+            String sql = "SELECT * FROM casas where id="+id;
+            pr = cn.prepareStatement(sql);
+            rs = pr.executeQuery();
+
+            while (rs.next()) {
+                v = new Viviendas();
+
+                v.setId(rs.getInt("id"));
+                v.setDescripción(rs.getString("descripcion"));
+                v.setDirección(rs.getString("direccion"));
+                v.setPrecio(rs.getFloat("precio"));
+                v.setEstado(rs.getString("estado"));
+                v.setRuta(rs.getString("foto"));
+            }
+            rs.close();
+            pr.close();
+            cn.close();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return v;
     }
 
     public byte[] obtenImagenProducto(int idProducto) {
@@ -283,7 +268,7 @@ public class Conexion {
         byte[] buffer = null;
         try {
             cn = getConexion();
-            String sql = "SELECT foto FROM viviendas.casas where id= ?";
+            String sql = "SELECT foto FROM casas where id= ?";
             pr = cn.prepareStatement(sql);
             pr.setInt(1, idProducto);
             rs = pr.executeQuery();
@@ -302,24 +287,18 @@ public class Conexion {
                     }
                 }
             }
+            rs.close();
+            pr.close();
+            cn.close();
         } catch (Exception ex) {
             System.out.println(ex);;
-        } finally {
-            try {
-                cn.close();
-                rs.close();
-                pr.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        } 
         return buffer;
     }
 
     public boolean registro(String dir, String desc, float precio, String file) {
 
         boolean ok = false;
-        int len1;
 
         try {
 
@@ -335,17 +314,9 @@ public class Conexion {
                     + "('" + dir + "'"
                     + ",'" + desc + "'"
                     + "," + precio + ""
-                    + ",?,'Activa')";
-
-            File f1 = new File(file);
-
-            FileInputStream fis1 = new FileInputStream(f1);
-
-            len1 = (int) f1.length();
+                    + ",'"+file+"','Activa')";
 
             PreparedStatement ps = conn.prepareStatement(query);
-
-            ps.setBinaryStream(1, fis1, len1);
             ps.executeUpdate();
             ok = true;
             ps.close();
@@ -361,23 +332,14 @@ public class Conexion {
     public boolean update(String dir, String desc, float precio, String file, int id) {
 
         boolean ok = false;
-        int len1;
-
         try {
 
             Connection conn = getConexion();
 
-            String query = "update casas set direccion='" + dir + "',descripcion='" + desc + "',precio=" + precio + ",foto=? where id=" + id;
-
-            File f1 = new File(file);
-
-            FileInputStream fis1 = new FileInputStream(f1);
-
-            len1 = (int) f1.length();
+            String query = "update casas set direccion='" + dir + "',descripcion='" + desc + "',precio=" + precio + ",foto='"+file+"' where id=" + id;
 
             PreparedStatement ps = conn.prepareStatement(query);
 
-            ps.setBinaryStream(1, fis1, len1);
             ps.executeUpdate();
             ok = true;
             ps.close();

@@ -39,16 +39,13 @@ public class Registrar extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        final Part a1 = request.getPart("imagen");
+        String url = request.getParameter("url");
         String dir = request.getParameter("dir");
-        String desc = request.getParameter("desc");
-        System.out.println(desc);
+        String desc = request.getParameter("desc").trim();
         float prestamo = Float.parseFloat(request.getParameter("precio"));
 
         Conexion c = new Conexion();
-        String file = writeFile(a1);
-        boolean ok = c.registro(dir, desc, prestamo, file);
+        boolean ok = c.registro(dir, desc, prestamo, url);
         if (ok) {
             response.sendRedirect("operario.jsp");
         }

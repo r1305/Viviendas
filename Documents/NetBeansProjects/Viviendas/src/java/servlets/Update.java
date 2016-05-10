@@ -39,14 +39,13 @@ public class Update extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        final Part a1 = request.getPart("imagen");
         int id=Integer.parseInt(request.getParameter("id"));
+        String file=request.getParameter("url");
         String dir = request.getParameter("dir");
         String desc = request.getParameter("desc");
         float prestamo = Float.parseFloat(request.getParameter("precio"));
         
         Conexion c=new Conexion();
-        String file=writeFile(a1);
         boolean ok=c.update(dir, desc, prestamo, file,id);
         if(ok){
             response.sendRedirect("operario.jsp");

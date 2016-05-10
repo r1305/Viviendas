@@ -35,6 +35,7 @@
                 }
             %>
         </script>
+        
 
     </head>
 
@@ -52,7 +53,6 @@
         </div>
     </nav>
     <div class="container" style="overflow-y: scroll;margin-top: 15px;max-height: 500px;width: 100%">
-
         <%for (int i = 0; i < v.size(); i++) {%>
         <div class="card" style="display: inline-block;" style="height: 150px;">
             <div class="card-image waves-effect waves-light" style="background: orange;width:300px">
@@ -71,5 +71,6 @@
             </div>
         </div>
         <%}%>
-    </body>
+    </div>
+</body>
 </html>

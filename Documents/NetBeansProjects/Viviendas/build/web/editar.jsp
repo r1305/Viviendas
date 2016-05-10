@@ -1,3 +1,5 @@
+<%@page import="dao.Viviendas"%>
+<%@page import="dto.Conexion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--libreria para hacer la conexión a la base de datos-->
 <%@taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
@@ -15,48 +17,73 @@
         <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+        <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
+        <script>
+            function getUrl() {
+                var a = event.fpfile.url;
+                $("#url").val(a);
+                $("#foto").load(function () {
+                }).attr('src', a);
+            }
+            <%
+                Cookie[] cookies = null;
+                // Get an array of Cookies associated with this domain
+                cookies = request.getCookies();
+                String correo = "";
+                for (int i = 0; i < cookies.length; i++) {
+                    if (cookies[i].getName().equals("admin")) {
+                        correo = cookies[i].getValue();
+                    }
+                }
+                if (correo == null || correo.equals("")) {
+                    response.sendRedirect("index_admin.jsp");
+                }
+            %>
+        </script>
     </head>
     <body>
-        <sql:setDataSource var="snapshot" driver="com.mysql.jdbc.Driver"
-                           url="jdbc:mysql://us-cdbr-iron-east-03.cleardb.net:3306/heroku_8db68c53d43a83f"
-                           user="b3c1f1d9e47f4b"  password="2bf408d7"/>
-        <sql:query dataSource="${snapshot}" var="n">
-            select * from viviendas where id=${param.cod}
-        </sql:query>
+        <%
+            Conexion c = new Conexion();
+            int cod = Integer.parseInt(request.getParameter("cod"));
+            Viviendas v = c.getVivienda(cod);
+        %>
+
         <div class="container">
-            <form role="form" action="Update" method="POST" enctype="multipart/form-data">
-                <c:forEach var="a" items="${n.rows}">
-                    <div class="card-image" style="text-align: center">
-                        <img class="activator" src="Imagen?cod=${a.id}" style="max-height: 140px;">
-                    </div>
+            <form role="form" action="Update" method="POST">
+                <center>
                     <div class="row">
-                        <label for="dir">Dirección:</label>
-                        <input type="text" name="dir" value='${a.direccion}'>
+                        <img id="foto" src="<%=v.getRuta()%>" style="height: 150px">
+                    </div>
+                    <div class="row" align="center">
+                        <div class="input-field col s12">
+                            <label for="dir">Dirección:</label>
+                            <input  type="text" class="validate" name="dir" value="<%=v.getDirección()%>">
+                        </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <textarea id="desc" name="desc" class="materialize-textarea" length="255" maxlength="255">${a.descripcion}</textarea>
-                            <label for="desc">Descripción</label>
+                            <textarea id="desc" name="desc" class="materialize-textarea" length="255" maxlength="255">
+                                <%=v.getDescripción()%>
+                            </textarea>
+                            <label for="desc">Textarea</label>
                         </div>
                     </div>
                     <div class="row">
-                        <label for="precio">Precio:</label>
-                        <input type="text" name="precio" value="${a.precio}">
-                    </div>
-                    <div class="file-field input-field">
-                        <div class="btn">
-                            <span>File</span>
-                            <input type="file" name="imagen">
-                        </div>
-                        <div class="file-path-wrapper">
-                            <input class="file-path validate" type="text">
+                        <div class="input-field col s12">
+                            <label for="precio">Precio:</label>
+                            <input  type="text" class="validate" name="precio" value="<%=v.getPrecio()%>">
                         </div>
                     </div>
-                    <input type="text" value="${a.id}" hidden="" name="id">
 
-                    <center><button type="submit" class="btn btn-default">Guardar</button></center>
-                    </c:forEach>
+                    <div class="row">
+                        <input type="filepicker" data-fp-apikey="AFNreTDRTfO0sFBEgoucQz" onchange="getUrl()">
+                        <input type="text" id="url" name="url" hidden="" value="<%=v.getRuta()%>">
+                        <input type="text" id="id" name="id" hidden="" value="<%=v.getId()%>">
+                    </div>
+                    <input type="submit" class="btn btn-default" value="Registrar">
+                </center>
             </form>
-        </div>
-    </body>
+        </form>
+    </div>
+</body>
 </html>
