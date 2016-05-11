@@ -51,7 +51,7 @@
             <div class="nav">
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
                     <li style="font-size: 22px">¡Hola! <%=c.getNombre(correo)%></li>
-                    <li><a href="Logout"><i class="material-icons right" style="font-size: 22px">input</i>Cerrar Sesión</a></li>
+                    <li><a href="Logout?cod=2"><i class="material-icons right" style="font-size: 22px">input</i>Cerrar Sesión</a></li>
                 </ul>
             </div>
         </nav>

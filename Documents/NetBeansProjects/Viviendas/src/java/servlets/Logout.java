@@ -33,30 +33,30 @@ public class Logout extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession(true);
-        session.invalidate();
-        request.logout();
-        session.setMaxInactiveInterval(1);
+        String cod = request.getParameter("cod");
         Cookie cookie = null;
         Cookie[] cookies = null;
         // Get an array of Cookies associated with this domain
         cookies = request.getCookies();
 
-        String nombre = "";
-        for (int i = 0; i < 2; i++) {
-            cookie = cookies[i];
-            if (cookies[i].getName().equals("user")) {
-                nombre = cookies[i].getValue();
-            }else if(cookies[i].getName().equals("admin")){
-                nombre = cookies[i].getValue();
-            }
-            cookie.setMaxAge(0);
-            response.addCookie(cookie);
-        }
-        System.out.println(nombre);
-        if(nombre.equals("rogger.aburto@gmail.com")){
-            response.sendRedirect("index.jsp");
-        }else{
-            response.sendRedirect("index_admin.jsp");
+        switch (cod) {
+            case "1":
+                for (int i = 0; i < 2; i++) {
+                    cookie = cookies[i];
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                }
+                response.sendRedirect("index.jsp");
+                break;
+            case "2":
+                for (int i = 0; i < 2; i++) {
+                    cookie = cookies[i];
+                    cookie.setMaxAge(0);
+                    response.addCookie(cookie);
+                }
+                response.sendRedirect("index_admin.jsp");
+                break;
+
         }
     }
 

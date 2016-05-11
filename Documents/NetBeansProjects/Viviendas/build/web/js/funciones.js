@@ -3,7 +3,7 @@ function login() {
     var p = document.getElementById("pwd").value;
     $("#preloader").show();
     $("#preloader").append('<div class="indeterminate"></div>');
-       
+
     $.get("Login",
             {
                 email: u,
@@ -21,10 +21,10 @@ function login() {
 
 function login_admin() {
     var u = document.getElementById("email").value;
-    var p = document.getElementById("pwd").value
+    var p = document.getElementById("pwd").value;
     $("#preloader").show();
     $("#preloader").append('<div class="indeterminate"></div>');
-    
+
     $.get("LoginAdmin",
             {
                 email: u,
@@ -41,6 +41,8 @@ function login_admin() {
             });
 }
 function activar(id) {
+    $("#preloader").show();
+    $("#preloader").append('<div class="indeterminate"></div>');
     $.get("CambiarEstado",
             {
                 estado: "Activa",
@@ -57,11 +59,29 @@ function activar(id) {
 
 
 }
-function desactivar(id) {
+function des(id) {
+    $("#preloader").show();
+    $("#preloader").append('<div class="indeterminate"></div>');
     $.get("CambiarEstado",
             {
                 estado: "No activa",
                 id: id
+            },
+            function (data) {
+                if (data === "true") {
+                    window.location.reload();
+                } else {
+                    alert("¡Ocurrió un error!");
+                }
+            });
+}
+
+function del(id) {
+    $("#preloader").show();
+    $("#preloader").append('<div class="indeterminate"></div>');
+    $.get("Eliminar",
+            {
+                cod: id
             },
             function (data) {
                 if (data === "true") {

@@ -34,12 +34,12 @@ public class Eliminar extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         int cod = Integer.parseInt(request.getParameter("cod"));
         
-
         Conexion c = new Conexion();
         boolean ok = c.delete(cod);
-        if (ok) {
-            response.sendRedirect("operario.jsp");
-        }
+        PrintWriter writer = response.getWriter();
+        //response.sendRedirect("operario.jsp");
+        writer.write(String.valueOf(ok));
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

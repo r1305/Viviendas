@@ -7,6 +7,7 @@ package servlets;
 
 import dto.Conexion;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -36,12 +37,14 @@ public class LoginAdmin extends HttpServlet {
         System.out.println(u);
         System.out.println(p);
         Conexion con = new Conexion();
-        boolean ok = con.getLoginClientes(u, p);
+        boolean ok = con.getLoginOperarios(u, p);
         System.out.println(String.valueOf(ok));
         Cookie c = new Cookie("admin", u);
         c.setMaxAge(365 * 24 * 60);
         response.addCookie(c);
-        response.sendRedirect("operario.jsp");
+        PrintWriter writer = response.getWriter();
+        //response.sendRedirect("operario.jsp");
+        writer.write(String.valueOf(ok));
     }
 
 // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
