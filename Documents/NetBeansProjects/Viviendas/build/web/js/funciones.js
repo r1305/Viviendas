@@ -1,15 +1,19 @@
 function login() {
     var u = document.getElementById("email").value;
     var p = document.getElementById("pwd").value;
+    $("#preloader").show();
+    $("#preloader").append('<div class="indeterminate"></div>');
+       
     $.get("Login",
             {
-                user: u,
-                psw: p
+                email: u,
+                pwd: p
             },
             function (data) {
                 if (data === "true") {
                     window.location.href = "cliente.jsp";
                 } else {
+                    $("#preloader").hide();
                     alert("¡Usuario o contraseña incorrecta!");
                 }
             });
@@ -17,16 +21,20 @@ function login() {
 
 function login_admin() {
     var u = document.getElementById("email").value;
-    var p = document.getElementById("pwd").value;
+    var p = document.getElementById("pwd").value
+    $("#preloader").show();
+    $("#preloader").append('<div class="indeterminate"></div>');
+    
     $.get("LoginAdmin",
             {
-                user: u,
-                psw: p
+                email: u,
+                pwd: p
             },
-            function (data, status) {
+            function (data) {
                 if (data === "true") {
                     window.location.href = "operario.jsp";
                 } else {
+                    $("#preloader").hide();
                     alert("¡Usuario o contraseña incorrecta!");
                 }
 

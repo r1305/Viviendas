@@ -18,23 +18,23 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
         <script src="js/funciones.js" type="text/javascript"></script>
     </head>
-    <body>
+    <body onload="$('#preloader').hide();">
     <center>
         <div style="margin-top: 150px">
             <div class="container" style="width: 450px;background:" >
                 <h2>Login</h2>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Enter password">
+                </div>
+                <div id="preloader" class="progress">
 
-                <form action="LoginAdmin" method="Post">
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" name="email" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" name="pwd" placeholder="Enter password">
-                    </div>
-                    <input type="submit" class="btn btn-default" value="Ingresar">
-                </form>
+                </div>
+                <input type="button" class="btn btn-default" onclick="login_admin()" value="Ingresar">
             </div>
         </div>
     </center>

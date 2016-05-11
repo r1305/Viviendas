@@ -7,6 +7,7 @@ package servlets;
 
 import dto.Conexion;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -40,8 +41,10 @@ public class Login extends HttpServlet {
         System.out.println(String.valueOf(ok));
         Cookie c=new Cookie("user",u);
         c.setMaxAge(365*24*60);
+        PrintWriter writer = response.getWriter();
         response.addCookie(c);
-        response.sendRedirect("cliente.jsp");
+        //response.sendRedirect("cliente.jsp");
+        writer.write(String.valueOf(ok));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

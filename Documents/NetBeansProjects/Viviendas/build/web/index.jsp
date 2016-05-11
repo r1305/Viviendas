@@ -10,6 +10,7 @@
         <title>Catálogo de viviendas</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- google apis-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
@@ -18,24 +19,30 @@
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
         <script src="js/funciones.js" type="text/javascript"></script>
-        
+        <script>
+        </script>
+
     </head>
-    <body>
+    <body onload="$('#preloader').hide();">
     <center>
         <div style="margin-top: 150px">
             <div class="container" style="width: 450px;background:" >
                 <h2>Login</h2>
-                <form action="Login" method="Post">
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                        <input type="email" class="form-control" name="email" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" name="pwd" placeholder="Enter password">
-                    </div>
-                    <input type="submit" class="btn btn-default" value="Ingresar">
-                </form>
+                <!--<form action="Login" method="Post">-->
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" class="form-control" name="email" id="email"placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password:</label>
+                    <input type="password" class="form-control" name="pwd" id="pwd" placeholder="Enter password">
+                </div>
+                <div id="preloader" class="progress">
+
+                </div>
+                <input type="button" onclick="login()" class="btn btn-default" value="Ingresar">
+                <!--</form>-->
+                
             </div>
         </div>
     </center>
