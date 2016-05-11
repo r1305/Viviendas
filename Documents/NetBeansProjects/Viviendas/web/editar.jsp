@@ -47,7 +47,14 @@
             int cod = Integer.parseInt(request.getParameter("cod"));
             Viviendas v = c.getVivienda(cod);
         %>
-
+        <nav>
+            <div class="nav">
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+                    <li style="font-size: 22px">¡Hola! <%=c.getNombre(correo)%></li>
+                    <li><a href="Logout"><i class="material-icons right" style="font-size: 22px">input</i>Cerrar Sesión</a></li>
+                </ul>
+            </div>
+        </nav>
         <div class="container">
             <form role="form" action="Update" method="POST">
                 <center>
