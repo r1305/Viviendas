@@ -10,6 +10,7 @@
         <title>Listado de viviendas</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
@@ -48,9 +49,7 @@
         <% Conexion c = new Conexion();%>
         <%List<Viviendas> v = c.getViviendas();%>  
         <nav>
-            <div class="nav">
-                <a href="#" class="brand-logo">Vivi-Found</a>
-
+            <div class="nav" >
                 <ul id="nav-mobile" class="right">
                     <li style="font-size: 22px">¡Hola! <%=c.getNombreOperarios(correo)%></li>
                     <a href="Logout" style="float: right"><i class="small material-icons"> input</i></a>
@@ -58,14 +57,14 @@
             </div>
         </nav>
         <div class="container" style="width: 100%">
-            <ul class="tabs">
+            <ul class="tabs" style="width: 100%">
                 <li class="tab col s2"><a href="#listado">Lista de Viviendas</a></li>
                 <li class="tab col s2"><a href="#nuevo">Nueva Vivienda</a></li>
             </ul>
-            <div id="listado" class="col s12" > 
-                <div class="container" style="overflow-y: scroll;margin-top: 15px;max-height: 500px;width: 100%">
+            <div id="listado" class="col s12" style="width: 100%"> 
+                <div class="container" style="overflow-y: scroll;margin-top: 15px;max-height: 500px;width: 120%">
                     <%for (int i = 0; i < v.size(); i++) {%>
-                    <div class="card" style="display: inline-block;" style="height: 150px;">
+                    <div class="card" style="display: inline-block;" style="height: 150px">
                         <div class="card-image waves-effect waves-light" style="background: orange;width:300px">
                             <p style="background: orange;text-align: center"><%=v.get(i).getDirección()%></p>
                             <img class="activator" src="<%=v.get(i).getRuta()%>" style="height: 150px">
@@ -81,19 +80,28 @@
                             <textarea readonly="true" style="height: 100px"><%=v.get(i).getDescripción()%></textarea>
                         </div>
                         <div class="card-action">
-                            <a href="editar.jsp?cod=<%=v.get(i).getId()%>">Editar</a>
+                            <a href="editar.jsp?cod=<%=v.get(i).getId()%>" style="color: black">
+                                <span class="glyphicon glyphicon-pencil"></span> Editar
+                            </a>
+                            <a style="float: right;color: black" href="Eliminar?cod=<%=v.get(i).getId()%>">
+                                <span class="glyphicon glyphicon-remove"></span> Eliminar
+                            </a>
                         </div>
                         <%if (v.get(i).getEstado().equals("No activa")) {%>
-                        <a class="waves-effect waves-light btn" style="width: 100%" onclick="activar(<%=v.get(i).getId()%>)">Activar</a>
+                        <a class="waves-effect waves-light btn" style="width: 100%" onclick="activar(<%=v.get(i).getId()%>)">
+                            <span class="glyphicon glyphicon-eye-open"></span> Activar
+                        </a>
                         <%} else {%>
-                        <a class="waves-effect waves-light btn" style="width: 100%" onclick="desactivar(<%=v.get(i).getId()%>)">Desactivar</a>
+                        <a class="waves-effect waves-light btn" style="width: 100%" onclick="desactivar(<%=v.get(i).getId()%>)">
+                            <span class="glyphicon glyphicon-eye-close"></span> Desactivar
+                        </a>
 
                         <%}%>
                     </div>
                     <%}%>                    
                 </div>
             </div>
-            <div id="nuevo" style="margin-right: 25%;margin-left: 25%">
+            <div id="nuevo" style="margin-right: 10%;margin-left: 10%">
                 <form action="Registrar" method="POST">
                     <center>
                         <div class="row" align="center">

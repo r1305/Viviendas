@@ -84,6 +84,24 @@ public class Conexion {
         return ok;
     }
 
+    public boolean delete(int id) {
+        boolean ok = false;
+        try (Connection conn = getConexion()) {
+            String query = "delete from casas where id="+id;
+
+            PreparedStatement ps = conn.prepareStatement(query);
+            ps.executeUpdate();
+            ok = true;
+            ps.close();
+            conn.close();
+        } catch (Exception ex) {
+            ok = false;
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return ok;
+    }
+
     public String getNombre(String u) {
         // TODO Auto-generated method stub
         String nombre = "";
@@ -230,7 +248,7 @@ public class Conexion {
 
         return l;
     }
-    
+
     public Viviendas getVivienda(int id) {
         Viviendas v = new Viviendas();
         Connection cn;
@@ -238,7 +256,7 @@ public class Conexion {
         PreparedStatement pr;
         try {
             cn = getConexion();
-            String sql = "SELECT * FROM casas where id="+id;
+            String sql = "SELECT * FROM casas where id=" + id;
             pr = cn.prepareStatement(sql);
             rs = pr.executeQuery();
 
@@ -292,7 +310,7 @@ public class Conexion {
             cn.close();
         } catch (Exception ex) {
             System.out.println(ex);;
-        } 
+        }
         return buffer;
     }
 
@@ -300,10 +318,7 @@ public class Conexion {
 
         boolean ok = false;
 
-        try {
-
-            Connection conn = getConexion();
-
+        try (Connection conn = getConexion()) {
             String query = "INSERT INTO casas"
                     + "(direccion"
                     + ",descripcion"
@@ -314,13 +329,12 @@ public class Conexion {
                     + "('" + dir + "'"
                     + ",'" + desc + "'"
                     + "," + precio + ""
-                    + ",'"+file+"','Activa')";
+                    + ",'" + file + "','Activa')";
 
             PreparedStatement ps = conn.prepareStatement(query);
             ps.executeUpdate();
             ok = true;
             ps.close();
-            conn.close();
         } catch (Exception ex) {
             ok = false;
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
@@ -336,7 +350,7 @@ public class Conexion {
 
             Connection conn = getConexion();
 
-            String query = "update casas set direccion='" + dir + "',descripcion='" + desc + "',precio=" + precio + ",foto='"+file+"' where id=" + id;
+            String query = "update casas set direccion='" + dir + "',descripcion='" + desc + "',precio=" + precio + ",foto='" + file + "' where id=" + id;
 
             PreparedStatement ps = conn.prepareStatement(query);
 
