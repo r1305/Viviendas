@@ -17,7 +17,6 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-        <script src="js/funciones.js" type="text/javascript"></script>
         <script>
             function getUrl() {
                 var a = event.fpfile.url;
