@@ -35,6 +35,7 @@ public class CambiarEstado extends HttpServlet {
         int id=Integer.parseInt(request.getParameter("id"));
         boolean ok=c.updateEstado(estado, id);
         response.getWriter().write(String.valueOf(ok));
+        response.sendRedirect("operario.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

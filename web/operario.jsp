@@ -21,7 +21,10 @@
         <script>
             function getUrl() {
                 var a = event.fpfile.url;
+                $("#foto").show();
                 $("#url").val(a);
+                $("#foto").load(function () {
+                }).attr('src', a);
             }
             <%
                 Cookie[] cookies = null;
@@ -92,11 +95,11 @@
                             </a>
                         </div>
                         <%if (v.get(i).getEstado().equals("No activa")) {%>
-                        <a class="waves-effect waves-light btn" style="width: 100%" onclick="activar(<%=v.get(i).getId()%>)">
+                        <a class="waves-effect waves-light btn" style="width: 100%" href="CambiarEstado?estado=Activa&id=<%=v.get(i).getId()%>" onclick="activar()">
                             <span class="glyphicon glyphicon-eye-open"></span> Activar
                         </a>
                         <%} else {%>
-                        <a class="waves-effect waves-light btn" style="width: 100%" onclick="des(<%=v.get(i).getId()%>)">
+                        <a class="waves-effect waves-light btn" style="width: 100%" href="CambiarEstado?estado=No activa&id=<%=v.get(i).getId()%>" onclick="des()">
                             <span class="glyphicon glyphicon-eye-close"></span> Desactivar
                         </a>
 
@@ -108,6 +111,9 @@
             <div id="nuevo" style="margin-right: 10%;margin-left: 10%">
                 <form action="Registrar" method="POST">
                     <center>
+                        <div class="row">
+                            <img id="foto" src="" style="height: 100px" hidden="">
+                        </div>
                         <div class="row" align="center">
                             <div class="input-field col s12">
                                 <label for="dir">Dirección:</label>
@@ -126,7 +132,6 @@
                                 <input  type="text" class="validate" name="precio">
                             </div>
                         </div>
-
                         <div class="row">
                             <input type="filepicker" data-fp-apikey="AFNreTDRTfO0sFBEgoucQz" onchange="getUrl()">
                             <input type="text" id="url" name="url" hidden="">

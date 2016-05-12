@@ -9,14 +9,14 @@ function login() {
                 email: u,
                 pwd: p
             },
-            function (data) {
-                if (data === "true") {
-                    window.location.href = "cliente.jsp";
-                } else {
-                    $("#preloader").hide();
-                    alert("¡Usuario o contraseña incorrecta!");
-                }
-            });
+    function (data) {
+        if (data === "true") {
+            window.location.href = "cliente.jsp";
+        } else {
+            $("#preloader").hide();
+            alert("¡Usuario o contraseña incorrecta!");
+        }
+    });
 }
 
 function login_admin() {
@@ -30,51 +30,41 @@ function login_admin() {
                 email: u,
                 pwd: p
             },
-            function (data) {
-                if (data === "true") {
-                    window.location.href = "operario.jsp";
-                } else {
-                    $("#preloader").hide();
-                    alert("¡Usuario o contraseña incorrecta!");
-                }
+    function (data) {
+        if (data === "true") {
+            window.location.href = "operario.jsp";
+        } else {
+            $("#preloader").hide();
+            alert("¡Usuario o contraseña incorrecta!");
+        }
 
-            });
+    });
 }
-function activar(id) {
+function activar() {
     $("#preloader").show();
     $("#preloader").append('<div class="indeterminate"></div>');
-    $.get("CambiarEstado",
-            {
-                estado: "Activa",
-                id: id
-            },
-            function (data) {
-                if (data === "true") {
-                    $("#preloader").hide();
-                } else {
-                    alert("¡Ocurrió un error!");
-                }
+    $.get("CambiarEstado", function (data) {
+        if (data === "true") {
+            window.location.reload();
+            $("#preloader").hide();
+        } else {
+            alert("¡Ocurrió un error!");
+        }
 
-            });
-
-
-
+    });
 }
-function des(id) {
+function des() {
     $("#preloader").show();
     $("#preloader").append('<div class="indeterminate"></div>');
-    $.get("CambiarEstado",
-            {
-                estado: "No activa",
-                id: id
-            },
-            function (data) {
-                if (data === "true") {
-                    window.location.reload();
-                } else {
-                    alert("¡Ocurrió un error!");
-                }
-            });
+    $.get("CambiarEstado", function (data) {
+        if (data === "true") {
+            window.location.reload();
+            $("#preloader").hide();
+
+        } else {
+            alert("¡Ocurrió un error!");
+        }
+    });
 }
 
 function del(id) {
@@ -84,13 +74,13 @@ function del(id) {
             {
                 cod: id
             },
-            function (data) {
-                if (data === "true") {
-                    window.location.reload();
-                } else {
-                    alert("¡Ocurrió un error!");
-                }
-            });
+    function (data) {
+        if (data === "true") {
+            window.location.reload();
+        } else {
+            alert("¡Ocurrió un error!");
+        }
+    });
 }
 
 

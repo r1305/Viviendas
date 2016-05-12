@@ -87,7 +87,7 @@
                         <input type="text" id="url" name="url" hidden="" value="<%=v.getRuta()%>">
                         <input type="text" id="id" name="id" hidden="" value="<%=v.getId()%>">
                     </div>
-                    <input type="submit" class="btn btn-default" value="Registrar">
+                    <input type="submit" onclick="" class="btn btn-default" value="Registrar">
                 </center>
             </form>
         </form>
