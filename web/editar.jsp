@@ -81,7 +81,6 @@
                             <input  type="text" class="validate" name="precio" value="<%=v.getPrecio()%>">
                         </div>
                     </div>
-
                     <div class="row">
                         <input type="filepicker" data-fp-apikey="AFNreTDRTfO0sFBEgoucQz" onchange="getUrl()">
                         <input type="text" id="url" name="url" hidden="" value="<%=v.getRuta()%>">
