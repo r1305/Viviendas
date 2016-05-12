@@ -9,12 +9,12 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Editar Vivienda</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <!-- Compiled and minified CSS -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
         <!--Import Google Icon Font-->
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
         <script type="text/javascript" src="//api.filestackapi.com/filestack.js"></script>
@@ -32,7 +32,7 @@
                 String correo = "";
                 for (int i = 0; i < cookies.length; i++) {
                     if (cookies[i].getName().equals("admin")) {
-                        correo = cookies[i].getValue();
+                        correo = cookies[i].getValue();                       
                     }
                 }
                 if (correo == null || correo.equals("")) {
@@ -50,8 +50,8 @@
         <nav>
             <div class="nav">
                 <ul id="nav-mobile" class="right hide-on-med-and-down">
-                    <li style="font-size: 22px">¡Hola! <%=c.getNombre(correo)%></li>
-                    <li><a href="Logout?cod=2"><i class="material-icons right" style="font-size: 22px">input</i>Cerrar Sesión</a></li>
+                    <li style="font-size: 22px">¡Hola! <%=c.getNombreOperarios(correo)%></li>
+                    <li><a href="Logout?cod=2"><i class="material-icons right" style="font-size: 22px">input</i></a></li>
                 </ul>
             </div>
         </nav>
