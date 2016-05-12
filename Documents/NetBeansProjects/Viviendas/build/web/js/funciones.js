@@ -50,7 +50,7 @@ function activar(id) {
             },
             function (data) {
                 if (data === "true") {
-                    window.location.reload();
+                    $("#preloader").hide();
                 } else {
                     alert("¡Ocurrió un error!");
                 }
