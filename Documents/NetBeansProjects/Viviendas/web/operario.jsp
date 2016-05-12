@@ -92,7 +92,7 @@
                             </a>
                         </div>
                         <%if (v.get(i).getEstado().equals("No activa")) {%>
-                        <a class="waves-effect waves-light btn" style="width: 100%" onclick="activar(<%=v.get(i).getId()%>)">
+                        <a class="waves-effect waves-light btn" style="width: 100%" href="CambiarEstado?id=<%=v.get(i).getId()%>&estado='Activa'" onclick="activar(<%=v.get(i).getId()%>)">
                             <span class="glyphicon glyphicon-eye-open"></span> Activar
                         </a>
                         <%} else {%>
